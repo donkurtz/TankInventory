@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MobileApplication.Models.DataLayer.TankData1>
+
+@{
+    ViewBag.Title = "View Tank Data";
+}
+
+@section Header {
+    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
+    <h1>@ViewBag.Title</h1>
+}
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TanlLevel)
+        </th>
+        <!--
+        <th>
+            @Html.DisplayNameFor(model => model.Unavailable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxBlendPercentage)
+        </th>
+        -->
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TanlLevel)
+        </td>
+        <!--
+        <td>
+            @Html.DisplayFor(modelItem => item.Unavailable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxBlendPercentage)
+        </td>
+        -->
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        
+    </tr>
+}
+
+</table>

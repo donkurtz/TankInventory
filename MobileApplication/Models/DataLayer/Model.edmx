@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MobileModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MobileModelStoreContainer">
+          <EntitySet Name="Products" EntityType="MobileModel.Store.Products" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TankData1" EntityType="MobileModel.Store.TankData1" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TankGroups" EntityType="MobileModel.Store.TankGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tanks" EntityType="MobileModel.Store.Tanks" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Tanks_TankGroups" Association="MobileModel.Store.FK_Tanks_TankGroups">
+            <End Role="TankGroups" EntitySet="TankGroups" />
+            <End Role="Tanks" EntitySet="Tanks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Product" />
+          </Key>
+          <Property Name="Product" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TankData1">
+          <Key>
+            <PropertyRef Name="TankID" />
+          </Key>
+          <Property Name="TankID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TankName" Type="nchar" MaxLength="10" />
+          <Property Name="Product" Type="nchar" MaxLength="10" />
+          <Property Name="TanlLevel" Type="float" />
+          <Property Name="Unavailable" Type="bit" />
+          <Property Name="MaxBlendPercentage" Type="float" />
+          <Property Name="Comments" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TankGroups">
+          <Key>
+            <PropertyRef Name="TankGroup" />
+          </Key>
+          <Property Name="TankGroup" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tanks">
+          <Key>
+            <PropertyRef Name="TankName" />
+          </Key>
+          <Property Name="TankName" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="TankGroup" Type="nchar" MaxLength="10" />
+          <Property Name="Description" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Tanks_TankGroups">
+          <End Role="TankGroups" Type="MobileModel.Store.TankGroups" Multiplicity="0..1" />
+          <End Role="Tanks" Type="MobileModel.Store.Tanks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TankGroups">
+              <PropertyRef Name="TankGroup" />
+            </Principal>
+            <Dependent Role="Tanks">
+              <PropertyRef Name="TankGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_AddData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TankName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Product" Type="nvarchar" Mode="In" />
+          <Parameter Name="TankLevel" Type="float" Mode="In" />
+          <Parameter Name="Unavailable" Type="bit" Mode="In" />
+          <Parameter Name="MaxBlendPercentage" Type="float" Mode="In" />
+          <Parameter Name="Comments" Type="nvarchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MobileModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MobileEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TankData1" EntityType="MobileModel.TankData1" />
+          <FunctionImport Name="funcAddTankData">
+            <Parameter Name="TankName" Mode="In" Type="String" />
+            <Parameter Name="Product" Mode="In" Type="String" />
+            <Parameter Name="TankLevel" Mode="In" Type="Double" />
+            <Parameter Name="Unavailable" Mode="In" Type="Boolean" />
+            <Parameter Name="MaxBlendPercentage" Mode="In" Type="Double" />
+            <Parameter Name="Comments" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Products" EntityType="MobileModel.Product" />
+          <EntitySet Name="TankGroups" EntityType="MobileModel.TankGroup" />
+          <EntitySet Name="Tanks" EntityType="MobileModel.Tank" />
+          <AssociationSet Name="FK_Tanks_TankGroups" Association="MobileModel.FK_Tanks_TankGroups">
+            <End Role="TankGroup" EntitySet="TankGroups" />
+            <End Role="Tank" EntitySet="Tanks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TankData1">
+          <Key>
+            <PropertyRef Name="TankID" />
+          </Key>
+          <Property Name="TankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TankName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Product" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="TanlLevel" Type="Double" />
+          <Property Name="Unavailable" Type="Boolean" />
+          <Property Name="MaxBlendPercentage" Type="Double" />
+          <Property Name="Comments" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product1" />
+          </Key>
+          <Property Type="String" Name="Product1" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TankGroup">
+          <Key>
+            <PropertyRef Name="TankGroup1" />
+          </Key>
+          <Property Type="String" Name="TankGroup1" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tanks" Relationship="MobileModel.FK_Tanks_TankGroups" FromRole="TankGroup" ToRole="Tank" />
+        </EntityType>
+        <EntityType Name="Tank">
+          <Key>
+            <PropertyRef Name="TankName" />
+          </Key>
+          <Property Type="String" Name="TankName" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="TankGroup" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="TankGroup1" Relationship="MobileModel.FK_Tanks_TankGroups" FromRole="Tank" ToRole="TankGroup" />
+        </EntityType>
+        <Association Name="FK_Tanks_TankGroups">
+          <End Type="MobileModel.TankGroup" Role="TankGroup" Multiplicity="0..1" />
+          <End Type="MobileModel.Tank" Role="Tank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TankGroup">
+              <PropertyRef Name="TankGroup1" />
+            </Principal>
+            <Dependent Role="Tank">
+              <PropertyRef Name="TankGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MobileModelStoreContainer" CdmEntityContainer="MobileEntities">
+          <EntitySetMapping Name="TankData1"><EntityTypeMapping TypeName="MobileModel.TankData1"><MappingFragment StoreEntitySet="TankData1">
+            <ScalarProperty Name="TankID" ColumnName="TankID" />
+            <ScalarProperty Name="TankName" ColumnName="TankName" />
+            <ScalarProperty Name="Product" ColumnName="Product" />
+            <ScalarProperty Name="TanlLevel" ColumnName="TanlLevel" />
+            <ScalarProperty Name="Unavailable" ColumnName="Unavailable" />
+            <ScalarProperty Name="MaxBlendPercentage" ColumnName="MaxBlendPercentage" />
+            <ScalarProperty Name="Comments" ColumnName="Comments" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="funcAddTankData" FunctionName="MobileModel.Store.sp_AddData" />
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="MobileModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Product1" ColumnName="Product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TankGroups">
+            <EntityTypeMapping TypeName="MobileModel.TankGroup">
+              <MappingFragment StoreEntitySet="TankGroups">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TankGroup1" ColumnName="TankGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tanks">
+            <EntityTypeMapping TypeName="MobileModel.Tank">
+              <MappingFragment StoreEntitySet="Tanks">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TankGroup" ColumnName="TankGroup" />
+                <ScalarProperty Name="TankName" ColumnName="TankName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model">
+        <EntityTypeShape EntityType="MobileModel.TankData1" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobileModel.Product" Width="1.5" PointX="3.375" PointY="3.75" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="MobileModel.TankGroup" Width="1.5" PointX="3.375" PointY="1" Height="1.5956835937499998" />
+        <EntityTypeShape EntityType="MobileModel.Tank" Width="1.5" PointX="5.625" PointY="0.875" Height="1.7879850260416657" />
+        <AssociationConnector Association="MobileModel.FK_Tanks_TankGroups" >
+          <ConnectorPoint PointX="4.875" PointY="1.7978417968749998" />
+          <ConnectorPoint PointX="5.625" PointY="1.7978417968749998" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

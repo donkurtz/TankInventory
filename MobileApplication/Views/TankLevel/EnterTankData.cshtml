@@ -1,0 +1,96 @@
+﻿@model MobileApplication.Models.DataLayer.TankData1
+
+@{
+    ViewBag.Title = "Enter Tank Data";
+    
+}
+
+@section Header {
+    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
+    <h1>@ViewBag.Title</h1>
+}
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+       
+
+        <div class="editor-label">
+            Tank Name
+        </div>
+
+        <table>
+    <tr>
+        <th>
+            @Html.DropDownList("TankGroup", ViewBag.TankGroups as SelectList)
+        </th>
+        <th>
+           @Html.DropDownList("TankName", ViewBag.TankNames as SelectList)
+        </th>
+        </tr>
+        </table>
+
+     
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Product)
+        </div>
+
+        <table>
+         <tr>
+        <th>
+            @Html.DropDownList("Product", ViewBag.Products as SelectList)
+            @Html.ValidationMessageFor(model => model.Product)
+        </th>
+        </tr>
+        </table>
+
+        <div class="editor-field">
+          
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TanlLevel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TanlLevel)
+            @Html.ValidationMessageFor(model => model.TanlLevel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Unavailable)
+        </div>
+        <table>
+         <tr>
+        <th>
+            @Html.EditorFor(model => model.Unavailable)
+            @Html.ValidationMessageFor(model => model.Unavailable)
+        </th>
+        </tr>
+        </table>
+
+          <div class="editor-label">
+            @Html.LabelFor(model => model.MaxBlendPercentage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxBlendPercentage)
+            @Html.ValidationMessageFor(model => model.MaxBlendPercentage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comments)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comments)
+            @Html.ValidationMessageFor(model => model.Comments)
+        </div>
+
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </fieldset>
+}
+
+
